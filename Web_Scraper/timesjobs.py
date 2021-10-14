@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup
 import requests
 import time
 #https://www.youtube.com/watch?v=XVv6mJpFOb0
-print('Input skills you are not familiar with to be filtered')
+print('Input skills you are not familiar with to be filtered (For multiple skill : Ex. a,b,c)')
 unfamiliar_skills = input('>')
 unskills = unfamiliar_skills.split(',')
 print(f'Filtering out {unskills}')
