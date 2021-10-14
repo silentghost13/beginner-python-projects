@@ -4,7 +4,8 @@ import time
 #https://www.youtube.com/watch?v=XVv6mJpFOb0
 print('Input skills you are not familiar with to be filtered')
 unfamiliar_skills = input('>')
-print(f'Filtering out {unfamiliar_skills}')
+unskills = unfamiliar_skills.split(',')
+print(f'Filtering out {unskills}')
 
 def find_job():
     html_text = requests.get('https://www.timesjobs.com/candidate/job-search.html?searchType=personalizedSearch&from=submit&txtKeywords=python&txtLocation=').text
@@ -15,8 +16,10 @@ def find_job():
         if 'few' in published_date:
             company_name = job.find('h3', class_ = 'joblist-comp-name').text.replace(' ','')
             skills = job.find('span', class_ = 'srp-skills').text.replace(' ','')
+            skills2 = skills.split(',')
             more_info = job.header.h2.a['href']
-            if unfamiliar_skills not in skills:
+            check = any(item in unskills for item in skills2)
+            if check is False:
                 with open(f'posts/{index}.txt', 'w') as f:
                     f.write(f'Company Name : {company_name.strip()}\n')
                     f.write(f'Required Skills : {skills.strip()}\n')
